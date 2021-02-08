@@ -79,10 +79,18 @@ WSGI_APPLICATION = 'blockchain_solutions_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+password = ''
+with open(os.path.join(Path(__file__).resolve().parent, 'password.txt'), 'r', encoding='utf-8') as inp:
+    password = inp.read().strip()
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django_db',
+        'USER' : 'bd_admin',
+        'PASSWORD' : password,
+        'HOST' : '127.0.0.1',
+        'PORT' : '5432',
     }
 }
 
