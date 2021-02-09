@@ -1,3 +1,6 @@
 from django.contrib import admin
+from blockchain_depiction_app.models import Block
 
-# Register your models here.
+@admin.register(Block)
+class BlockAdmin(admin.ModelAdmin):
+	pass
