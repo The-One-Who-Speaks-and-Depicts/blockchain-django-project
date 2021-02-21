@@ -8,28 +8,26 @@ class  BlocksList  extends  Component {
 constructor(props) {
     super(props);
     this.state  = {
-        blocks: [],
-        nextPageURL:  ''
+        blocks: []
     };
-    this.nextPage  =  this.nextPage.bind(this);
 }
 
 componentDidMount() {
     var  self  =  this;
+    const { match: { params } } =  this.props;
+    var height = params.height;
     blocksService.getBlocks().then(function (result) {
         console.log(result);
         self.setState({ blocks:  result.data, nextPageURL:  result.nextlink})
+        var  newArr  =  self.state.blocks.filter(function(obj) {
+            return  obj.height  ==  height;
+        });
+
+        self.setState({blocks:  newArr})
     });
 }
 
 
-nextPage(){
-    var  self  =  this;
-    console.log(this.state.nextPageURL);
-    blocksService.getBlocksByURL(this.state.nextPageURL).then((result) => {
-        self.setState({ blocks:  result.data, nextPageURL:  result.nextlink})
-    });
-}
 render() {
 
     return (
@@ -42,7 +40,6 @@ render() {
                 <th>Timestamp</th>
                 <th>Transactions</th>
                 <th>Miner</th>
-                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -52,12 +49,10 @@ render() {
                 <td>{c.hash}  </td>
                 <td>{c.timestamp}</td>
                 <td>{c.transactions}</td>
-                <td>{c.miner}</td> 
-                <a  href={"/blocks/" + c.height}> View</a>               
+                <td>{c.miner}</td>               
             </tr>)}
             </tbody>
             </table>
-            <button  className="btn btn-primary"  onClick=  {  this.nextPage  }>Next</button>
         </div>
         );
   }

@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { Route, Link } from 'react-router-dom'
 
 import  BlocksList from './BlocksList'
-//import  CustomerCreateUpdate  from './CustomerCreateUpdate'
+import  BlockWatch  from './BlockWatch'
 import './App.css';
 
 const BaseLayout = () => (
@@ -23,7 +23,8 @@ const BaseLayout = () => (
 
     <div className="content">
       <Route path="/" exact component={BlocksList} />
-
+      <Route  path="/blocks/:height"  component={BlockWatch}  />
+      <Route  path="/blocks/"  exact  component={BlocksList}  />
     </div>
 
   </div>
