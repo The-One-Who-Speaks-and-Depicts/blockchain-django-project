@@ -18,7 +18,7 @@ def blocks_list(request):
         previousPage = 1
         blocks = Block.objects.all()
         page = request.GET.get('page', 1)
-        paginator = Paginator(blocks, 5)
+        paginator = Paginator(blocks, 50)
         try:
             data = paginator.page(page)
         except PageNotAnInteger:
