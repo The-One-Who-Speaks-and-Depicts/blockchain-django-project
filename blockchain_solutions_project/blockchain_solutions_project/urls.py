@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from blockchain_depiction_app import views
+from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^api/blocks/$', views.blocks_list),
+    url(r'^api/blocks/(?P<height>[0-9]+)$', views.blocks_detail),
 ]
